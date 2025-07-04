@@ -108,6 +108,7 @@ async def test_browser_use_agent():
             if browser_binary_path == "":
                 browser_binary_path = None
             browser_user_data = os.getenv("BROWSER_USER_DATA", None)
+            print(f"333333Browser user data: {browser_user_data}")
             if browser_user_data:
                 extra_browser_args += [f"--user-data-dir={browser_user_data}"]
         else:
@@ -264,6 +265,7 @@ async def test_browser_use_parallel():
             if browser_binary_path == "":
                 browser_binary_path = None
             browser_user_data = os.getenv("BROWSER_USER_DATA", None)
+            print(f"44444Browser user data: {browser_user_data}")
             if browser_user_data:
                 extra_browser_args += [f"--user-data-dir={browser_user_data}"]
         else:

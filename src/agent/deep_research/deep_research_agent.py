@@ -87,6 +87,7 @@ async def run_single_browser_task(
             if browser_binary_path == "":
                 browser_binary_path = None
             browser_user_data = browser_user_data_dir or os.getenv("BROWSER_USER_DATA", None)
+            print(f"111111Using own browser binary: {browser_binary_path}, user data: {browser_user_data}")
             if browser_user_data:
                 extra_args += [f"--user-data-dir={browser_user_data}"]
         else:
