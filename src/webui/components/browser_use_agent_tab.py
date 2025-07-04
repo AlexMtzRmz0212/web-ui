@@ -23,6 +23,7 @@ from src.browser.custom_browser import CustomBrowser
 from src.controller.custom_controller import CustomController
 from src.utils import llm_provider
 from src.webui.webui_manager import WebuiManager
+import os
 
 logger = logging.getLogger(__name__)
 
@@ -990,142 +991,13 @@ def create_browser_use_agent_tab(webui_manager: WebuiManager):
             height=600,
             show_copy_button=True,
         )
+        # Load default value from .env if available
+        prompt = os.getenv("PROMPT", "")
+
         user_input = gr.Textbox(
             label="Your Task or Response",
             placeholder="Enter your task here or provide assistance when asked.",
-            value="""
-**Goal:** Apply to suitable jobs on LinkedIn's Easy Apply section.
-
-**Basic Rules:**
-
-- Navigate to the provided LinkedIn Easy Apply job list.
-- Link: https://www.linkedin.com/jobs/collections/easy-apply/?currentJobId=4245997993&discover=recommended&discoveryOrigin=JOBS_HOME_JYMBII
-- Prioritize jobs that align with "Multidisciplinary Engineer with a background in Mechatronics, Management, and AI Software Development".
-- Look for roles that emphasize automation systems, AI/ML projects, Python, C++, and full-stack development.
-- When applying, ensure all mandatory fields are completed accurately using the information from the provided resume.
-- Look for opportunities to highlight bilingual skills (English & Spanish fluent, French intermediate).
-- When prompted for project experience, prioritize "HireTechGenius - AI Interview Evaluation Web App" , "Machine Learning Analysis of Dallas Police Incidents" , "Notion API Integration and Automation through Python" , and "Robotic Arm and Mobile Robot".
-- Do not apply to jobs that require extensive experience in areas not covered by the resume.
-
-**Decision Making:**
-
-- **Job Suitability:** Assess job descriptions for keywords like "automation engineer," "AI/ML engineer," "mechatronics," "software development," "control systems," and "SCADA."
-- **Experience Match:** Compare required experience with "RELEVANT EXPERIENCE" (Automation Engineer , Design Engineer ) and "PROJECTS"  sections of the resume.
-- **Skill Match:** Cross-reference required skills with the "SKILLS & COMPETENCIES" section (Programming , Frameworks/Tools , Automation Systems , Control Systems , Data/AI Tools , Cloud & APIs , Version Control & DevOps ).
-- **Location:** Prioritize jobs in Canada. Be open to remote or hybrid roles if specified. Specify willing to relocate if needed.
-- **Application Completion:** If an application form is overly complex or requires significant free-text answers not easily derivable from the resume, skip that application and move to the next job.
-
-**Instructions for Forms:**
-
-- **Name:** Alejandro Martínez
-- **Phone Number:** +1(613) 805-6388
-- **Email Address:** alejandro.martinez.rmz97@gmail.com
-- **LinkedIn Profile URL:** [linkedin.com/in/alejandro-mtz](https://www.google.com/search?q=https://linkedin.com/in/alejandro-mtz&authuser=4)
-- **Location:** Ottawa, ON
-- **Education:**
-    - **Graduate Certificate in Artificial Intelligence Software Development (AISD)**: Algonquin College, Ottawa, ON, Canada, 2024-2025
-    - **BEng in Mechatronics Engineering**: Autonomous University of San Luis Potosi, San Luis Potosí, México, 2015-2021
-    - **BA in Management**: City University of Seattle, Seattle, WA, USA, 2017-2022
-- **Work Experience:**
-    - **Automation Engineer**: Grupo Transom, San Luis Potosi, Mexico, Jan 2023 - Jul 2023
-        - Responsibilities: Designed and implemented SCADA systems, developed automation solutions using Python, C#, JavaScript, XML, SQL, and C++.
-    - **Design Engineer**: Daikin Applied Americas, San Luis Potosi, Mexico, Mar 2021 - May 2022
-        - Responsibilities: Contributed to HVAC component and system design and analysis, collaborated with U.S.-based teams.
-- **Skills:** Provide skills as listed in "SKILLS & COMPETENCIES"  section. If a specific skill is requested and listed, provide it. If asked for general programming languages, list Python, C++, C#, JavaScript, SQL. If asked for frameworks/tools, list PyTorch, Flask, React, Git, REST APIs.
-- **Project Details:** When asked about projects, select the most relevant one from your "PROJECTS" section  based on the job description. If multiple fit, prioritize the AI/ML related ones ("HireTechGenius" or "Machine Learning Analysis of Dallas Police Incidents" ).
-
-If Cover Letter is Optional
-
-Use the following 2-3 sentence blurb:
-
-> Hi, I’m an Automation and AI/ML Engineer with a background in Mechatronics, Management, and AI Software Development, I am passionate about bridging hardware and intelligent software solutions. My experience in automation systems and recent AI/ML projects, coupled with strong skills in Python, C++, and full-stack development, aligns perfectly with the requirements of this role. I am eager to leverage my skills to contribute to your team's success.
-> 
-
-Resume to Use:
-
-**Candidate Name:** Alejandro Martínez
-
-**Contact Information:**
-
-- **Location:** Ottawa, ON
-- **Phone:** +1(613) 805-6388
-- **Email:** alejandro.martinez.rmz97@gmail.com
-- **LinkedIn:** [linkedin.com/in/alejandro-mtz](https://www.google.com/search?q=https://linkedin.com/in/alejandro-mtz&authuser=4)
-
-**Professional Summary:** Multidisciplinary Engineer with a background in Mechatronics, Management, and AI Software Development. Experienced in automation systems and recent AI/ML projects, with strong skills in Python, C++, and full-stack development. Bilingual team player, passionate about bridging hardware and intelligent software solutions.
-
-**Relevant Experience:**
-
-- **Automation Engineer**
-    - Grupo Transom, San Luis Potosi, Mexico
-    - Jan 2023 - Jul 2023
-    - Designed and implemented SCADA systems, including custom graphic displays, alarms, data logging, and reporting features, while troubleshooting and debugging automation systems.
-    - Developed automation solutions using Python, C#, JavaScript, XML, SQL, and C++ for manufacturing and automotive industries.
-- **Design Engineer**
-    - Daikin Applied Americas, San Luis Potosi, Mexico
-    - Mar 2021 - May 2022
-    - Contributed to design and analysis of HVAC components and systems, collaborating with U.S.-based teams for custom air-handling units and chillers.
-    - Collaborated cross-border with engineers and project managers to deliver compliant, optimized designs.
-
-**Skills & Competencies:**
-
-- **Programming:** Python, C++, C#, JavaScript, SQL
-- **Frameworks/Tools:** PyTorch, Flask, React, Git, REST APIs
-- **Automation Systems:** SCADA, Studio 5000, Siemens TIA Portal, HVAC Controls
-- **Control Systems:** Ladder Logic, Sensor Calibration, Wiring Schematics
-- **Data/AI Tools:** Pandas, Scikit-learn, K-Means, LOF, Decision Trees, Random Forests
-- **Cloud & APIs:** Microsoft Graph API, Azure (basic), Notion API, MLB stats API.
-- **Version Control & DevOps:** Git, GitHub, Agile/Scrum practices
-- **Languages:** English & Spanish (fluent), French (intermediate)
-- **Soft Skills:** Strong communicator across cross-functional and multicultural teams , Leadership, adaptability, and mentorship experience , Team collaboration in fast-paced, project-based environments
-
-**Education:**
-
-- **Graduate Certificate in Artificial Intelligence Software Development (AISD)**
-    - Algonquin College, Ottawa, ON, Canada
-    - 2024-2025
-- **BEng in Mechatronics Engineering**
-    - Autonomous University of San Luis Potosi, San Luis Potosí, México
-    - 2015-2021
-    - Relevant Coursework: Programmable Logic Control - focused on Allen Bradley PLCs, Studio 5000, and ladder logic programming.
-    - Completed multiple simulated and practical automation projects involving motor control, sensors, and manufacturing systems.
-- **BA in Management**
-    - City University of Seattle, Seattle, WA, USA
-    - 2017-2022
-
-**Projects:**
-
-- **Notion API Integration and Automation through Python**
-    - Personal Project, San Luis Potosi, Mexico
-    - Jan 2023 - Sep 2024
-    - Developed an automated workflow using Python and the Notion API, enabling seamless data synchronization, task tracking, and dynamic content updates within Notion workspaces.
-- **Robotic Arm and Mobile Robot**
-    - Bachelor's Final Project, San Luis Potosi, Mexico
-    - Jan 2019 - Dec 2019
-    - Created and built Matlab interface to control a robotic arm capable of moving inside a 15x15 cm workspace on command.
-    - Designed and implemented wireless control, sensor reading, and feedback of a mobile 30 cm robot using Python.
-- **HireTechGenius - AI Interview Evaluation Web App**
-    - Applied Technology Project (Client: One.Six Digital Inc.)
-    - Sep 2024 - Apr 2025
-    - Built a web app using Flask, React, and Microsoft Graph API to analyze interview transcripts with LLMs (Phi-4, LLAMA 3.2, Mistral) and generate PDF evaluation reports.
-    - Collaborated with a 4-member team, contributing to full-stack development, prompt engineering, and stakeholder presentations.
-- **Machine Learning Analysis of Dallas Police Incidents**
-    - AISD, Ottawa, ON
-    - Oct 2024 - Dec 2024
-    - Applied CRISP-DM methodology to analyze real-world crime data, accomplishing clustering using K-Means and anomaly detection via LOF, ISF, alongside classification models (k-NN, Decision Trees, and Random Forest).
-
-**Additional Experience:**
-
-- **Counselling Director**
-    - Easter Seals Camp Merry-Wood, Perth, ON
-    - Jun 2024 - Sep 2024
-    - Developed and led a recreation program for 100+ campers with physical disabilities, ensuring high-quality care through staff training and best practices.
-    - Supervised and supported 25 counsellors, fostering professional growth and team cohesion throughout summer camp.
-- **Restaurant Manager**
-    - "El Castillo", San Luis Potosi, Mexico
-    - Apr 2019 - May 2023
-    - Co-founded and managed a family-owned fast-food restaurant, overseeing operations, inventory, budgeting, staff training, and payroll while ensuring high-quality food standards and fostering a welcoming atmosphere, building a strong community reputation.
-""",
+            value=prompt,
             lines=3,
             interactive=True,
             elem_id="user_input",
