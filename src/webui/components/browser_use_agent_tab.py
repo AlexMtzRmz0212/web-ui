@@ -999,7 +999,7 @@ def create_browser_use_agent_tab(webui_manager: WebuiManager):
 **Basic Rules:**
 
 - Navigate to the provided LinkedIn Easy Apply job list.
-- Preferred Link: https://www.linkedin.com/jobs/collections/easy-apply/?currentJobId=4245997993&discover=recommended&discoveryOrigin=JOBS_HOME_JYMBII
+- Link: https://www.linkedin.com/jobs/collections/easy-apply/?currentJobId=4245997993&discover=recommended&discoveryOrigin=JOBS_HOME_JYMBII
 - Prioritize jobs that align with "Multidisciplinary Engineer with a background in Mechatronics, Management, and AI Software Development".
 - Look for roles that emphasize automation systems, AI/ML projects, Python, C++, and full-stack development.
 - When applying, ensure all mandatory fields are completed accurately using the information from the provided resume.
